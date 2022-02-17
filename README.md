@@ -4,8 +4,8 @@ Authors: Amy Kong, Jaskaran Singh, Sam Zhang
 
 ---
 # Summary
-(a short summary of the project)
 
+This project aims to 
 
 ---
 # Running the Analysis
