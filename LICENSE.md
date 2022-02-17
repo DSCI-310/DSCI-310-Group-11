@@ -1,4 +1,4 @@
-# License for the project code:
+# License for the project code (The MIT License)
 
 Copyright <2022/02/16> <Sam Zhang, Amy Kong, Jaskaran Singh>
 
