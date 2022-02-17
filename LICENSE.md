@@ -57,9 +57,9 @@ By exercising the Licensed Rights (defined below), You accept and agree to be bo
 ### Section 4: Sui Generis Database rights.
 Where the Licensed Rights include Sui Generis Database Rights that apply to Your use of the Licensed Material:
     
-   1) for the avoidance of doubt, Section 2(a)(1) grants You the right to extract, reuse, reproduce, and Share all or a substantial portion of the contents of the database for NonCommercial purposes only and provided You do not Share Adapted Material;
-    2) if You include all or a substantial portion of the database contents in a database in which You have Sui Generis Database Rights, then the database in which You have Sui Generis Database Rights (but not its individual contents) is Adapted Material; and
-    3) You must comply with the conditions in Section 3(a) if You Share all or a substantial portion of the contents of the database.
+- for the avoidance of doubt, Section 2(a)(1) grants You the right to extract, reuse, reproduce, and Share all or a substantial portion of the contents of the database for NonCommercial purposes only and provided You do not Share Adapted Material;
+- if You include all or a substantial portion of the database contents in a database in which You have Sui Generis Database Rights, then the database in which You have Sui Generis Database Rights (but not its individual contents) is Adapted Material; and
+- You must comply with the conditions in Section 3(a) if You Share all or a substantial portion of the contents of the database.
 
 ### Section 5: Disclaimer of Warranties and Limitation of Liability.
 
