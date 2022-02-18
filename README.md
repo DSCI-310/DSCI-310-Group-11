@@ -9,7 +9,7 @@ A wildfire is an uncontrolled fire that starts in the wildland vegetation and sp
 ## Running the Analysis
 Clone this repository and run it on a machine of your choice. Below is a list of dependencies needed to run the analysis:
 ```
-docker run --rm -it -p 8888:8888 ubcdsci/jupyterlab
+docker run --rm -it -p 8888:8888 a0kay/dsci-310-group-11
 ```
 
 ## License 
