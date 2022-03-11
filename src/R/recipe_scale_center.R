@@ -1,5 +1,5 @@
 #' Create a recipe to preprocess data
-#' 
+#'
 #' Creates a recipe by scaling and centering the given data,
 #' and creates a model using the given formula.
 #'
@@ -8,7 +8,7 @@
 #'
 #' @return A tidymodel recipe, specifying inputs, outputs, and steps
 #' (scaling and centering) applied to all predictors.
-#' 
+#'
 #' @export
 #'
 #' @examples
@@ -19,7 +19,7 @@ recipe_scale_center <- function(dataframe, formula) {
     stop("`recipe_scale_center` expects a data frame")
   }
   # TODO: fix detection
-  if (class(formula) != 'formula') {
+  if (class(formula) != "formula") {
     stop("`recipe_scale_center` expects a formula in the form
          `target ~ predictor(s)")
   }
