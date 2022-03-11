@@ -2,10 +2,10 @@ library(testthat)
 source("../../../src/R/knn_spec.R")
 
 test_that("`knn_spec` should return a k-nearest neighbours model specification.", {
-  # TODO: write tests
   expect_s3_class(knn_spec(0), "model_spec")
   expect_s3_class(knn_spec(5), "model_spec")
   expect_s3_class(knn_spec(900), "model_spec")
+  expect_s3_class(knn_spec(df_element), "model_spec")
 })
 
 test_that("`knn_spec` should throw an error when incorrect types are passed in.", {
