@@ -15,7 +15,7 @@ data_cleaning <- function(dataFrame, columns){
   }
   colNames = names(dataFrame)
   for(c in columns){
-    if({c} %in% colNames){
+    if ({c} %in% colNames) {
       dataFrame = dataFrame |> select(-{c})
     }else{
       stop("Wrong column names! Please try again")
