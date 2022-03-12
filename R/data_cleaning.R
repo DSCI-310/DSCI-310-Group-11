@@ -10,7 +10,7 @@
 #' @examples
 #' data_cleaning(fire_data, c("X","Y","month"))
 data_cleaning <- function(dataFrame, columns){
-  if(!is.data.frame(dataFrame)){
+  if (!is.data.frame(dataFrame)) {
     stop("DataFrame must be a data frame! Please try again.")
   }
   colNames = names(dataFrame)
