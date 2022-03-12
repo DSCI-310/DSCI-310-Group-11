@@ -15,6 +15,16 @@ A wildfire is an uncontrolled fire that starts in the wildland vegetation and sp
 docker run --rm -it -p 8888:8888 a0kay/dsci-310-group-11
 ```
 
+## Dependencies
+### R libraries
+- `r-tidyverse=1.3.1`
+- `r-tidymodels=0.1.4`
+- `r-ggally=2.1.2`
+- `r-testthat=3.1.2`
+- `r-dplyr=1.0.7`
+- `r-vdiffr=1.0.2`
+
+
 ## License 
 Licensed under the MIT License and
 
