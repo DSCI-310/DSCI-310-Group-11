@@ -4,7 +4,7 @@
 #' @param data data.frame or tibble
 #' @param title title of the plot from the data frame or tibble 
 #'
-#' @return
+#' @return returns a ggpairs scatterplot representing a correlation matrix between pairs of variables
 #' @export
 #'
 #' @examples
