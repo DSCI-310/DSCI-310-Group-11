@@ -2,7 +2,7 @@ library(testthat)
 source("../../../src/R/data_cleaning.R")
 
 test_that("data_cleaning should report an error when a data frame is not inputed", {
-  expect_error(data_cleaning(1,"people"))
+  expect_error(data_cleaning(1, "people"))
   expect_error(data_cleaning("dataFrame", "gender"))
   expect_error(data_cleaning(FALSE, "num"))
 })
