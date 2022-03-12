@@ -1,7 +1,7 @@
 #' scatter2d 
 #' A short-cut function for creating 2 dimensional ggpair scatterplots via GGally and ggplot2
 #'
-#' @param data data.frame or tibble
+#' @param data A data frame or tibble.
 #' @param title title of the plot from the data frame or tibble 
 #'
 #' @return returns a ggpairs scatterplot representing a correlation matrix between pairs of variables
