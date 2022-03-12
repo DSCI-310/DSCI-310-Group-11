@@ -24,7 +24,8 @@ recipe_scale_center <- function(dataframe, formula) {
     stop("`recipe_scale_center` expects a formula in the form
          `target ~ predictor(s)")
   }
-  recipes::recipe(formula, data = dataframe) %>%
+    
+recipes::recipe(formula, data = dataframe) %>%
     recipes::step_center(recipes::all_predictors()) %>%
     recipes::step_scale(recipes::all_predictors())
 }
