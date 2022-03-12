@@ -12,7 +12,7 @@ test_that("data_cleaning should report an error when columns names are incorrect
   expect_error(data_cleaning(test_data, c("")))
 })
 
-test_that("data_cleaning should output a dataFrame with only two columns (excluding people)",{
+test_that("data_cleaning should output a data frame with only two columns (excluding people)", {
   expect_equivalent(data_cleaning(test_data, "people"), test_data_two_columns)
 })
 
