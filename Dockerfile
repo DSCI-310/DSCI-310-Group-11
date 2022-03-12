@@ -7,3 +7,4 @@ RUN conda install --yes -c conda-forge \
     r-testthat=3.1.2 \
     r-dplyr=1.0.7 \
     r-vdiffr=1.0.2
+    
