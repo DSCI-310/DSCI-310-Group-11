@@ -10,11 +10,10 @@
 #' @examples
 #' scatter2d(mtcars, hp, mpg)
 
-correlation_graph <- function(.data, gg_title) {
+correlation_graph <- function (.data, gg_title) {
   GGally::ggpairs(data = .data, 
-  ggplot2::aes(colour = "steelblue", alpha = 0.5)) + 
+                  ggplot2::aes(colour = "steelblue", alpha = 0.5)) + 
     ggplot2::ggtitle(gg_title)
-}
 
 
 
