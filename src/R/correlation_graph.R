@@ -6,10 +6,11 @@
 #' @param title title of the plot from the data frame or tibble
 #'
 #' @return returns a ggpairs scatter plot with correlation values between pairs of variables
+#' 
 #' @export
 #'
 #' @examples
-#' scatter2d(mtcars, hp, mpg)
+#' scatter2d(mtcars, "Correlation Matrix between Pairs of Variables")
 correlation_graph <- function(.data, gg_title) {
   GGally::ggpairs(data = .data,
                   ggplot2::aes(colour = "steelblue", alpha = 0.5)) +
