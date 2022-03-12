@@ -16,6 +16,6 @@ test_that("data_cleaning should output a data frame with only two columns (exclu
   expect_equivalent(data_cleaning(test_data, "people"), test_data_two_columns)
 })
 
-test_that("data_cleaning should output a dataFrame with only one columns (only gender)",{
+test_that("data_cleaning should output a data frame with only one columns (only gender)", {
   expect_equivalent(data_cleaning(test_data, c("people","num")), test_data_one_column)
 })
