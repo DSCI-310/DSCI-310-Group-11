@@ -1,6 +1,6 @@
-#' Creates a new data frame with selected columns dropped from an old dataFrame
+#' Creates a new data frame with selected columns dropped from the old data frame
 #'
-#' @param data_frame A data frame or data frame extension (e.g. a tibble).
+#' @param dataFrame A data frame or data frame extension (e.g. a tibble).
 #' @param columns Name(s) of column(s) from the dataFrame 
 #'
 #' @return A new data frame with columns dropped from the old data frame
