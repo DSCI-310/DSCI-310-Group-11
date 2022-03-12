@@ -18,11 +18,11 @@ knn_spec <- function(neighbours) {
     stop("`knn_spec` expects a numeric value for the number of neighbours.")
   }
   
-  if (!(neighbours %% 1 == 0)) {
-    stop("`knn_spec` expects an integer value for the number of neighbours.")
+  if (!(neighbours %% 1 == 0) || neighbours < 0) {
+    stop("`knn_spec` expects an positive, integer value for the number of neighbours.")
   }
   
-  if (neighbours < 0) {
+  if (neighbours != "tune()") {
     stop("`knn_spec` expects a positive integer for the number of neighbours.")
   }
   
