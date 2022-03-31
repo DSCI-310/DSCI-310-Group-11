@@ -37,19 +37,21 @@ This project aims to predict the burned area of forest fires, in the northeast r
 In @fire_dataset, the output `area` was first transformed with a $\ln(x+1)$ function. Then, several Data Mining methods were applied. After fitting the models, the outputs were post-processed with the inverse of the $\ln(x+1)$ transform.
 
 Following are the attributes used in this dataset:
-- `X` : x-axis spatial coordinate within the Montesinho park map: 1 to 9
-- `Y` : y-axis spatial coordinate within the Montesinho park map: 2 to 9
-- `month` : month of the year: 'jan' to 'dec'
-- `day` : day of the week: 'mon' to 'sun'
-- `FFMC`: FFMC index from the FWI system: 18.7 to 96.20
-- `DMC`: DMC index from the FWI system: 1.1 to 291.3
-- `DC`: DC index from the FWI system: 7.9 to 860.6
-- `ISI`: ISI index from the FWI system: 0.0 to 56.10
-- `temp`: temperature in Celsius degrees: 2.2 to 33.30
-- `RH`: relative humidity in %: 15.0 to 100
-- `wind`: wind speed in km/h: 0.40 to 9.40
-- `rain`: outside rain in mm/m2 : 0.0 to 6.4
-- `area`: the burned area of the forest (in ha): 0.00 to 1090.84
+
+* `X` : x-axis spatial coordinate within the Montesinho park map: 1 to 9
+* `Y` : y-axis spatial coordinate within the Montesinho park map: 2 to 9
+* `month` : month of the year: 'jan' to 'dec'
+* `day` : day of the week: 'mon' to 'sun'
+* `FFMC`: FFMC index from the FWI system: 18.7 to 96.20
+* `DMC`: DMC index from the FWI system: 1.1 to 291.3
+* `DC`: DC index from the FWI system: 7.9 to 860.6
+* `ISI`: ISI index from the FWI system: 0.0 to 56.10
+* `temp`: temperature in Celsius degrees: 2.2 to 33.30
+* `RH`: relative humidity in %: 15.0 to 100
+* `wind`: wind speed in km/h: 0.40 to 9.40
+* `rain`: outside rain in mm/m2 : 0.0 to 6.4
+* `area`: the burned area of the forest (in ha): 0.00 to 1090.84
+
 
 
 # Methods and Results
@@ -60,7 +62,7 @@ Following are the attributes used in this dataset:
 
 First, we load and tidy the data by removing the non-numeric columns, `month` and `date`, and the numeric columns, `X` (x-axis coordinates) and `Y` (y-axis coordinates), as they are not relevant in our analysis.
 
-```{r setup}
+```{r setup, include=FALSE}
 suppressPackageStartupMessages({
     library(tidyverse)
     library(tidymodels)
@@ -73,7 +75,7 @@ source("../src/R/correlation_graph.R")
 source("../src/R/recipe_scale_center.R")
 ```
 
-```{r load-data}
+```{r load-data, include=FALSE}
 fire_data <- read_csv("../data/forestfires.csv", show_col_types = FALSE)
 fire_data <- data_cleaning(fire_data, c('X','Y','month','day'))
 "Table 1: Tidied Data"
@@ -118,33 +120,8 @@ Looking at the scatter plots with evident trends, for `DC` and `DMC`, there appe
 In order to build our $k$-NN regression model, we use the aforementioned variables and perform cross-validation with 5 folds to find the number of neighbours with the minimum RMSE (root mean square error).
 
 ```{r best-k}
-fire_recipe <- recipe_scale_center(fire_train, area ~ DC + DMC + ISI + FFMC + temp + RH)
-
-fire_spec <- nearest_neighbor(weight_func = "rectangular", neighbors = tune()) %>%
-            set_engine("kknn") %>%
-            set_mode("regression")
-
-fire_cv <- vfold_cv(fire_train, v = 5, strata = area)
-
-fire_wkflw <- workflow() %>%
-            add_recipe(fire_recipe) %>%
-            add_model(fire_spec)
-
-gridvals <- tibble(neighbors = seq(from = 1, to = 200, by = 3))
-
-fire_results <- fire_wkflw %>%
-            tune_grid(resamples = fire_cv, grid = gridvals) %>%
-            collect_metrics() %>%
-            filter(.metric == "rmse")
-
-min_rmse <- fire_results %>%
-            filter(mean == min(mean))
-
-k_min <- min_rmse %>%
-        pull(neighbors)
-
-"Table 2: The Number of Neighbors with the Minimum RMSE"
-min_rmse
+best_k <- read_csv("../../results/best_k.csv")
+knitr::kable(best_k, caption = "The number of neighbours with the minimum RMSE")
 ```
 
 We see that the smallest RMSE is when $k=142$. So, we will use $k=142$ when we retrain our model.
