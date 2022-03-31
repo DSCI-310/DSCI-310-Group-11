@@ -18,11 +18,13 @@ opt <- docopt(doc)
 trained_data <- read_csv(opt$train, show_col_types = FALSE)
 
 create_plot <- trained_data %>%
-  ggpairs(aes(alpha = 0.5))
+  ggpairs(lower=list(continuous=GGally::wrap("points", size = 0.3, color="steelblue", alpha = 0.5)),
+          diag=list(continuous=GGally::wrap("densityDiag", fill="steelblue")))
 
 create_plot_selected <- trained_data %>% 
   select(DC, DMC, ISI, FFMC, temp, RH) %>% 
-  ggpairs(aes(alpha = 0.5))
+  ggpairs(lower=list(continuous=GGally::wrap("points", size = 0.3, color="steelblue", alpha = 0.5)),
+          diag=list(continuous=GGally::wrap("densityDiag", fill="steelblue")))
     
   
 ggsave(paste0(opt$out_dir, "/correlation_graph.png"),
