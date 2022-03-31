@@ -1,6 +1,6 @@
 "This scripts fits a k-nn regression model on the given data and get the minimum
 number of neighbours for k-nn. 
-The best k value is saved as a csv file named 'best_k.csv'
+The model with best k value is saved as a csv file named 'best_k.csv'.
 
 The training data is to be a csv file.
 
@@ -10,6 +10,7 @@ Usage: src/R/tune_fit.R <train_data> <out_dir>
 library(tidyverse)
 library(tidymodels)
 library(docopt)
+set.seed(2022)
 
 opt <- docopt(doc)
 
@@ -44,11 +45,10 @@ model_results <- model_wkflw |>
 
 # the minimum k
 k_min <- model_results |>
-  filter(mean == min(mean)) |>
-  pull(neighbors)
+  filter(mean == min(mean))
 
 # store k in a data frame to save
 k_min_table <- data.frame(k_min)
 
-# save result as a .csv file ----------------------------------------------------------------
+# save best model results as a .csv file --------------------------------------
 write_csv(k_min_table, paste0(opt$out_dir, "/best_k.csv"))

@@ -10,6 +10,7 @@ Usage: src/R/fit_model.R <train_data> <test_data> <best_k> <out_dir>
 library(tidyverse)
 library(tidymodels)
 library(docopt)
+set.seed(2022)
 
 opt <- docopt(doc)
 

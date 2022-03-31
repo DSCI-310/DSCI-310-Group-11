@@ -84,7 +84,7 @@ head(fire_data)
 
 Now, we split the data into a 75:25 training and testing split, which is then scaled and centered to ensure that all variables are on a comparable scale.
 
-```{r data-split-scale-recipe}
+```{r data-split-scale-recipe, include=FALSE}
 set.seed(2022)
 fire_split <- initial_split(fire_data, prop = 0.75, strata = area)
 fire_train <- training(fire_split)
@@ -99,13 +99,13 @@ fire_scaled <- fire_recipe %>%
 
 Then, we plot a correlation matrix to determine if any pairs of variables are associated with each other.
 
-```{r correl-graph}
+```{r correl-graph, include=FALSE}
 correlation_graph(fire_scaled, "Figure 1: Correlation Matrix Between Pairs of Variables")
 ```
 
 From Figure 1, we see that `DC` and `DMC`; `ISI` and `FFMC`; `temp` and `DMC`; `temp` and `DC`; and `RH` and `temp` have quite large correlation values. So, we will create another correlation matrix with only those variables to examine them closer.
 
-```{r correl-graph-lv}
+```{r correl-graph-lv, include=FALSE}
 cor_data <- fire_scaled %>% select(DC, DMC, ISI, FFMC, temp, RH)
 
 correlation_graph(cor_data, "Figure 2: Correlation Matrix Between Pairs of Variables with Large Correlation Values")
@@ -119,40 +119,28 @@ Looking at the scatter plots with evident trends, for `DC` and `DMC`, there appe
 
 In order to build our $k$-NN regression model, we use the aforementioned variables and perform cross-validation with 5 folds to find the number of neighbours with the minimum RMSE (root mean square error).
 
-```{r best-k}
-best_k <- read_csv("../../results/best_k.csv")
+```{r best-k, echo=FALSE, message=FALSE}
+best_k <- read_csv("../results/best_k.csv")
+k_val <- best_k$neighbors
+train_rmse <- round(best_k$mean, digits = 2)
 knitr::kable(best_k, caption = "The number of neighbours with the minimum RMSE")
 ```
 
-We see that the smallest RMSE is when $k=142$. So, we will use $k=142$ when we retrain our model.
+We see that the smallest RMSE is when $k=$ `r k_val`. So, we will use it when we retrain our model.
 
 
 ### Evaluating on the Test Set
 
 
-To see how well our model predicts on unknown data, we will retrain it to use $k=142$ neighbours before predicting on the test set.
+To see how well our model predicts on unknown data, we will retrain it to use  $k=$ `r k_val` neighbours before predicting on the test set.
 
-```{r model-rmse}
-test_spec <- nearest_neighbor(weight_func = "rectangular", neighbors = k_min) %>%
-            set_engine("kknn") %>%
-            set_mode("regression")
-
-fire_fit <- workflow() %>%
-            add_recipe(fire_recipe) %>%
-            add_model(test_spec) %>%
-            fit(data = fire_train)
-
-fire_summary <- fire_fit %>%
-                predict(fire_test) %>%
-                bind_cols(fire_test) %>%
-                metrics(truth = area, estimate = .pred) %>%
-                filter(.metric == "rmse")
-
-"Table 3: Testing RMSE"
-fire_summary
+```{r model-rmse, echo=FALSE, message=FALSE}
+testing_rmse <- read_csv("../results/testing_rmse.csv")
+rmse_val <- round(testing_rmse$.estimate, digits = 2)
+knitr::kable(testing_rmse, caption = "Testing RMSE")
 ```
 
-The new model's RMSE is 30.94 ha, which is the burned area of the forest. When comparing the test model's RMSE to the training model's RMSE of 59.01 ha, we get a difference of 28.07 ha. Because the difference is quite large, our model does a adequate job at generalizing to new data.
+The new model's RMSE is `r rmse_val` ha, which is the burned area of the forest. When comparing the test model's RMSE to the training model's RMSE of `r train_rmse` ha, we get a difference of `r train_rmse - rmse_val` ha. Because the difference is quite large, our model does a adequate job at generalizing to new data.
 
 
 # Discussion
