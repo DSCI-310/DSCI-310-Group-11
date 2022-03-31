@@ -21,9 +21,6 @@ output:
 bibliography: references.bib
 ---
 
-# Using regression to predict the burned area of forest fires in the northeast region of Portugal
-
-
 # Introduction
 A wildfire is an uncontrolled fire that starts in the wildland vegetation and spreads quickly through the landscape, particularly in rural locations. For hundreds of millions of years, wildfires have burned in forests, grasslands, savannas, and other habitats. They are not constrained by geography or climate. A natural occurrence, such as a lightning strike, or a human-made spark can ignite a wildfire. However, the extent to which a wildfire spreads is frequently determined by weather conditions. Wind, heat, and a lack of rain may dry out trees, bushes, fallen leaves, and limbs, making them excellent fuel for a fire. Topography also plays a role: flames burn faster uphill than they do downhill.
 
@@ -37,19 +34,19 @@ This project aims to predict the burned area of forest fires, in the northeast r
 In @fire_dataset, the output `area` was first transformed with a $\ln(x+1)$ function. Then, several Data Mining methods were applied. After fitting the models, the outputs were post-processed with the inverse of the $\ln(x+1)$ transform.
 
 Following are the attributes used in this dataset:
-- `X` : x-axis spatial coordinate within the Montesinho park map: 1 to 9
-- `Y` : y-axis spatial coordinate within the Montesinho park map: 2 to 9
-- `month` : month of the year: 'jan' to 'dec'
-- `day` : day of the week: 'mon' to 'sun'
-- `FFMC`: FFMC index from the FWI system: 18.7 to 96.20
-- `DMC`: DMC index from the FWI system: 1.1 to 291.3
-- `DC`: DC index from the FWI system: 7.9 to 860.6
-- `ISI`: ISI index from the FWI system: 0.0 to 56.10
-- `temp`: temperature in Celsius degrees: 2.2 to 33.30
-- `RH`: relative humidity in %: 15.0 to 100
-- `wind`: wind speed in km/h: 0.40 to 9.40
-- `rain`: outside rain in mm/m2 : 0.0 to 6.4
-- `area`: the burned area of the forest (in ha): 0.00 to 1090.84
+* `X` : x-axis spatial coordinate within the Montesinho park map: 1 to 9
+* `Y` : y-axis spatial coordinate within the Montesinho park map: 2 to 9
+* `month` : month of the year: 'jan' to 'dec'
+* `day` : day of the week: 'mon' to 'sun'
+* `FFMC`: FFMC index from the FWI system: 18.7 to 96.20
+* `DMC`: DMC index from the FWI system: 1.1 to 291.3
+* `DC`: DC index from the FWI system: 7.9 to 860.6
+* `ISI`: ISI index from the FWI system: 0.0 to 56.10
+* `temp`: temperature in Celsius degrees: 2.2 to 33.30
+* `RH`: relative humidity in %: 15.0 to 100
+* `wind`: wind speed in km/h: 0.40 to 9.40
+* `rain`: outside rain in mm/m2 : 0.0 to 6.4
+* `area`: the burned area of the forest (in ha): 0.00 to 1090.84
 
 
 # Methods and Results
@@ -60,7 +57,7 @@ Following are the attributes used in this dataset:
 
 First, we load and tidy the data by removing the non-numeric columns, `month` and `date`, and the numeric columns, `X` (x-axis coordinates) and `Y` (y-axis coordinates), as they are not relevant in our analysis.
 
-```{r setup}
+```{r setup, include=FALSE}
 suppressPackageStartupMessages({
     library(tidyverse)
     library(tidymodels)
@@ -73,7 +70,7 @@ source("../src/R/correlation_graph.R")
 source("../src/R/recipe_scale_center.R")
 ```
 
-```{r load-data}
+```{r load-data, include=FALSE}
 fire_data <- read_csv("../data/forestfires.csv", show_col_types = FALSE)
 fire_data <- data_cleaning(fire_data, c('X','Y','month','day'))
 "Table 1: Tidied Data"
@@ -82,7 +79,7 @@ head(fire_data)
 
 Now, we split the data into a 75:25 training and testing split, which is then scaled and centered to ensure that all variables are on a comparable scale.
 
-```{r data-split-scale-recipe}
+```{r data-split-scale-recipe, include=FALSE}
 set.seed(2022)
 fire_split <- initial_split(fire_data, prop = 0.75, strata = area)
 fire_train <- training(fire_split)
@@ -97,15 +94,14 @@ fire_scaled <- fire_recipe %>%
 
 Then, we plot a correlation matrix to determine if any pairs of variables are associated with each other.
 
-```{r correl-graph, fig.cap="Correlation matrix between pairs of variables associated with each other."}
-
+```{r correl-graph, fig.cap="Correlation matrix between pairs of variables associated with each other.", echo=FALSE}
 knitr::include_graphics("../results/correlation_graph.png")
 ```
 
 From Figure 1, we see that `DC` and `DMC`; `ISI` and `FFMC`; `temp` and `DMC`; `temp` and `DC`; and `RH` and `temp` have quite large correlation values. So, we will create another correlation matrix with only those variables to examine them closer.
 
-```{r correl-graph-lv, fig.cap="Correlation Matrix Between Pairs of Variables with Large Correlation Values"}
 
+```{r correl-graph-lv, fig.cap="Correlation Matrix Between Pairs of Variables with Large Correlation Values", echo=FALSE}
 knitr::include_graphics("../results/correlation_graph_selected.png")
 ```
 
@@ -117,7 +113,7 @@ Looking at the scatter plots with evident trends, for `DC` and `DMC`, there appe
 
 In order to build our $k$-NN regression model, we use the aforementioned variables and perform cross-validation with 5 folds to find the number of neighbours with the minimum RMSE (root mean square error).
 
-```{r best-k}
+```{r best-k, echo=FALSE, message=FALSE}
 fire_recipe <- recipe_scale_center(fire_train, area ~ DC + DMC + ISI + FFMC + temp + RH)
 
 fire_spec <- nearest_neighbor(weight_func = "rectangular", neighbors = tune()) %>%
@@ -147,7 +143,7 @@ k_min <- min_rmse %>%
 min_rmse
 ```
 
-We see that the smallest RMSE is when $k=142$. So, we will use $k=142$ when we retrain our model.
+We see that the smallest RMSE is when $k=142$. So, we will use it when we retrain our model.
 
 
 ### Evaluating on the Test Set
@@ -155,7 +151,7 @@ We see that the smallest RMSE is when $k=142$. So, we will use $k=142$ when we r
 
 To see how well our model predicts on unknown data, we will retrain it to use $k=142$ neighbours before predicting on the test set.
 
-```{r model-rmse}
+```{r model-rmse, echo=FALSE, message=FALSE}
 test_spec <- nearest_neighbor(weight_func = "rectangular", neighbors = k_min) %>%
             set_engine("kknn") %>%
             set_mode("regression")
