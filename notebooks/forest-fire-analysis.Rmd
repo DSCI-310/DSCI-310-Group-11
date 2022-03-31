@@ -97,16 +97,16 @@ fire_scaled <- fire_recipe %>%
 
 Then, we plot a correlation matrix to determine if any pairs of variables are associated with each other.
 
-```{r correl-graph}
-correlation_graph(fire_scaled, "Figure 1: Correlation Matrix Between Pairs of Variables")
+```{r correl-graph, fig.cap="Correlation matrix between pairs of variables associated with each other."}
+
+knitr::include_graphics("../results/correlation_graph.png")
 ```
 
 From Figure 1, we see that `DC` and `DMC`; `ISI` and `FFMC`; `temp` and `DMC`; `temp` and `DC`; and `RH` and `temp` have quite large correlation values. So, we will create another correlation matrix with only those variables to examine them closer.
 
-```{r correl-graph-lv}
-cor_data <- fire_scaled %>% select(DC, DMC, ISI, FFMC, temp, RH)
+```{r correl-graph-lv, fig.cap="Correlation Matrix Between Pairs of Variables with Large Correlation Values"}
 
-correlation_graph(cor_data, "Figure 2: Correlation Matrix Between Pairs of Variables with Large Correlation Values")
+knitr::include_graphics("../results/correlation_graph_selected.png")
 ```
 
 Looking at the scatter plots with evident trends, for `DC` and `DMC`, there appears to be a strong, positive relationship between the variables; whereas for temperature (`temp`) and relative humidity (`RH`), there appears to be a weak, negative relationship. And for `ISI` and `FFMC`, the plot follows a logarithmic curve, with a majority of the points concentrated around `ISI` values of -1.25 to 1.25.
