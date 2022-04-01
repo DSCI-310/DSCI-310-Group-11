@@ -29,6 +29,6 @@ fire_scaled <- fire_recipe %>%
   prep() %>%
   bake(fire_train)
 
-write_csv(fire_train, paste0(opt$out_dir1, "/training_data.csv"))
-write_csv(fire_test, paste0(opt$out_dir2, "/testing_data.csv"))
-write_csv(fire_scaled, paste0(opt$out_dir3, "/scaled_and_centered_training_data.csv"))
+write_csv(fire_train, paste0(opt$out_dir, "/training_data.csv"))
+write_csv(fire_test, paste0(opt$out_dir, "/testing_data.csv"))
+write_csv(fire_scaled, paste0(opt$out_dir, "/scaled_and_centered_training_data.csv"))
