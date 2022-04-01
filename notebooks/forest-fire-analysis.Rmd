@@ -66,13 +66,13 @@ We split the data into a 75:25 training and testing split, which is then scaled 
 
 Then, we plot a correlation matrix to determine if any pairs of variables are associated with each other.
 
-```{r correl-graph, fig.cap="Correlation matrix between pairs of variables associated with each other.",  out.width="90%", out.height="85%", echo=FALSE}
+```{r correl-graph, fig.cap="Correlation matrix between pairs of variables associated with each other.", out.width="85%", echo=FALSE}
 knitr::include_graphics("../results/correlation_graph.png")
 ```
 
-From Figure 1, we see that `DC` and `DMC`; `ISI` and `FFMC`; `temp` and `DMC`; `temp` and `DC`; and `RH` and `temp` have quite large correlation values. So, we will create another correlation matrix with only those variables to examine them closer.
+From Figure \@ref(fig:correl-graph), we see that `DC` and `DMC`; `ISI` and `FFMC`; `temp` and `DMC`; `temp` and `DC`; and `RH` and `temp` have quite large correlation values. So, we will create another correlation matrix with only those variables to examine them closer.
 
-```{r correl-graph-lv, fig.cap="Correlation Matrix Between Pairs of Variables with Large Correlation Values", echo=FALSE}
+```{r correl-graph-lv, fig.cap="Correlation Matrix Between Pairs of Variables with Large Correlation Values", out.width="85%", echo=FALSE}
 knitr::include_graphics("../results/correlation_graph_selected.png")
 ```
 
@@ -106,7 +106,7 @@ The new model's RMSE is `r rmse_val` ha, which is the burned area of the forest.
 
 # Discussion
 
-From Figure 1, we can see that the response variable (area) has almost no correlation with the other explanatory variables. This result was unexpected since we thought environmental factors, such as rain, temperature, wind, etc., would have a significant impact on the burned area, whether positive or negative. After further investigation, we noticed that there are many zeros in the dataset in the response column. The large number of zeros has made our data analysis less interpretable and revealing. As most of our output is skewed towards zero, the patterns of the graphs became counter-intuitive and the correlation indexes are also heavily influenced. One remedy is to apply a transformation to the response to yield better linearity, more stabilized variance and a more conspicuous relationship between the variables.
+From Figure \@ref(fig:correl-graph), we can see that the response variable (area) has almost no correlation with the other explanatory variables. This result was unexpected since we thought environmental factors, such as rain, temperature, wind, etc., would have a significant impact on the burned area, whether positive or negative. After further investigation, we noticed that there are many zeros in the dataset in the response column. The large number of zeros has made our data analysis less interpretable and revealing. As most of our output is skewed towards zero, the patterns of the graphs became counter-intuitive and the correlation indexes are also heavily influenced. One remedy is to apply a transformation to the response to yield better linearity, more stabilized variance and a more conspicuous relationship between the variables.
 
 Furthermore, the skewed nature of our dataset is what prompted us to adopt $k$-NN regression. A multiple linear regression (MLR) model places more constraints on the data, such as low multicollinearity, linearity, non-constant variance etc., and we discovered that our data fall well short of those requirements. For instance, from Figure 2 we can see that many of our explanatory variables are highly correlated with each other and hence the assumption of no or low multicollinearity fails. $k$-NN regression, on the other hand, performs well with non-linear relationships since it requires fewer assumptions about the data distribution, making it a better fit for this project than MLR.
 

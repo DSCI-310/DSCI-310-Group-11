@@ -11,7 +11,6 @@
 # - to clean the entire analysis: make clean
 
 all: notebooks/forest-fire-analysis.html
-# scripts: data/forestfires.csv data/cleaned_data.csv data/training_data.csv data/testing_data.csv data/scaled_and_centered_training_data.csv results/correlation_graph.png results/correlation_graph_selected.png results/best_k.csv results/testing_rmse.csv
 
 # loading the data
 data/forestfires.csv : src/R/data_loading.R

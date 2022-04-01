@@ -26,7 +26,8 @@ create_plot <- trained_data %>%
 create_plot_selected <- trained_data %>% 
   select(DC, DMC, ISI, FFMC, temp, RH) %>% 
   ggpairs(lower=list(continuous=wrap("points", size = 0.3, color="steelblue", alpha = 0.5)),
-          diag=list(continuous=wrap("densityDiag", fill="steelblue"))) 
+          diag=list(continuous=wrap("densityDiag", fill="steelblue"))) +
+  ggplot2::theme(axis.text.x = element_text(angle = 40, size = 7))
     
 ggsave(paste0(opt$out_dir, "/correlation_graph.png"),
          create_plot)
