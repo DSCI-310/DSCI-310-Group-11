@@ -12,11 +12,11 @@ results/fire_test.csv : data/fire_data.csv src/R/train_test_splits.R
 		Rscript src/R/train_test_splits.R <args>
 
 # correlation plots
-results/correlation_plot.png : data/fire_data.csv src/R/correlation_plot.R
-		Rscript src/R/correlation_plot.R <args>
+results/correlation_graph.png : data/training_data.csv src/R/Correlation_matrix_plot.R
+		Rscript src/R/Correlation_matrix_plot.R data/training_data.csv results
 
-results/correlation_plot_lv.png : data/fire_data.csv src/R/correlation_plot.R
-		Rscript src/R/correlation_plot.R <args>
+results/correlation_graph_selected.png : data/training_data.csv src/R/Correlation_matrix_plot.R
+		Rscript src/R/Correlation_matrix_plot.R data/training_data.csv results
 
 # tune model - find the best k for k-nn
 results/best_k.csv : data/training_data.csv src/R/tune_model.R
