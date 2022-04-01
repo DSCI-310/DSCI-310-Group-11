@@ -6,7 +6,7 @@
 the neccessary data cleaning/tidying, then saves that file
 locally as a csv file. This script takes two data file paths.
 
-Usage: /src/R/data_tidying.R <file_path> <destination_path>
+Usage: /src/R/data_tidying.R <file_path> <out_dir>
 " -> doc
 
 library(tidyverse)
@@ -18,4 +18,4 @@ data <- read_csv(opt$file_path, show_col_types = FALSE)
 
 data <- select(data, -c('X','Y','month','day'))
 
-write_csv(data, opt$destination_path)
+write_csv(data, paste0(opt$out_dir, "/cleanedData.csv"))
