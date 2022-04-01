@@ -12,7 +12,7 @@ A wildfire is an uncontrolled fire that starts in the wildland vegetation and sp
 3. Use the command line to navigate to the root of this project's repo 
 4. Run the following to set up the environment:
 ```
-docker run -it --rm -p 8888:8888 -v /$(pwd):/opt/notebooks a0kay/dsci-310-group-11
+docker run -it --rm -p 8888:8888 -v /$(pwd):/opt/notebooks a0kay/dsci-310-group-11 make -C /opt/notebooks
 ```
 
 ## Dependencies
