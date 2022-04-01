@@ -18,4 +18,4 @@ data <- read_csv(opt$file_path, show_col_types = FALSE)
 
 data <- select(data, -c('X','Y','month','day'))
 
-write_csv(data, paste0(opt$out_dir, "/cleanedData.csv"))
+write_csv(data, paste0(opt$out_dir, "/cleaned_data.csv"))
