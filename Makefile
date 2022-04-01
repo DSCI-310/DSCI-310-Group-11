@@ -32,7 +32,7 @@ results/correlation_graph.png : data/scaled_and_centered_training_data.csv src/R
 		Rscript src/R/Correlation_matrix_plot.R data/scaled_and_centered_training_data.csv results
 
 results/correlation_graph_selected.png : data/scaled_and_centered_training_data.csv src/R/correlation_matrix_plot.R
-		Rscript src/R/Correlation_matrix_plot.R data/scaled_and_centered_training_data.csv results
+		Rscript src/R/correlation_matrix_plot.R data/scaled_and_centered_training_data.csv results
 
 # tune model - find the best k for k-nn
 results/best_k.csv : data/training_data.csv src/R/tune_model.R
