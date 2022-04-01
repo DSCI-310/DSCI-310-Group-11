@@ -8,8 +8,14 @@ A wildfire is an uncontrolled fire that starts in the wildland vegetation and sp
 
 ## Running the Analysis
 1. Install [Docker](https://www.docker.com/get-started), if not already installed
-2. Clone/download this repository
+2. Clone this repository
+```
+git clone https://github.com/DSCI-310/DSCI-310-Group-11.git
+```
 3. Use the command line to navigate to the root of this project's repo 
+```
+cd DSCI-310-Group-11
+```
 4. Run the following to set up the environment:
 ```
 docker run -it --rm -p 8888:8888 -v /$(pwd):/opt/notebooks a0kay/dsci-310-group-11 make -C /opt/notebooks
