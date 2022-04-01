@@ -7,6 +7,7 @@ Authors: Amy Kong, Jaskaran Singh, Sam Zhang
 A wildfire is an uncontrolled fire that starts in the wildland vegetation and spreads quickly through the landscape. A natural occurrence, such as a lightning strike, or a human-made spark can easily initiate a wildfire and wipe away millions of properties. However, the extent to which a wildfire spreads is frequently determined by weather conditions. Wind, heat, and a lack of rain may dry out trees, bushes, fallen leaves, and limbs, making them excellent fuel for a fire. In this project, **we wish to predict the burned area of forests based on several environmental factors with a k-NN regression model**. By establishing a transparent link between them, it is possible to identify potential risk factors and take appropriate safeguards to prevent the emergence of forest fires and the disasters they generate.
 
 ## Running the Analysis
+### Using Docker
 1. Install [Docker](https://www.docker.com/get-started), if not already installed
 2. Clone this repository
 ```
@@ -20,6 +21,23 @@ cd DSCI-310-Group-11
 ```
 docker run -it --rm -p 8888:8888 -v /$(pwd):/opt/notebooks a0kay/dsci-310-group-11 make -C /opt/notebooks
 ```
+
+### Without Docker
+1. Clone this repository
+```
+git clone https://github.com/DSCI-310/DSCI-310-Group-11.git
+```
+2. Install the listed dependencies [below](#dependencies)
+3. At the root directory of the project, run the following in the terminal/command line:
+```
+make all
+```
+
+To reset the repo to a clean state use:
+```
+make clean
+```
+
 
 ## Dependencies
 Using R version 4.1.1
