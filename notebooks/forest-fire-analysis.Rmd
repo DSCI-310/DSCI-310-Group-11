@@ -52,6 +52,7 @@ Following are the attributes used in this dataset:
 * `area`: the burned area of the forest (in ha): 0.00 to 1090.84
 
 
+
 # Methods and Results
 
 
@@ -97,11 +98,12 @@ fire_scaled <- fire_recipe %>%
 
 Then, we plot a correlation matrix to determine if any pairs of variables are associated with each other.
 
-```{r correl-graph, echo=FALSE}
+```{r correl-graph, include=FALSE}
 correlation_graph(fire_scaled, "Figure 1: Correlation Matrix Between Pairs of Variables")
 ```
 
 From Figure 1, we see that `DC` and `DMC`; `ISI` and `FFMC`; `temp` and `DMC`; `temp` and `DC`; and `RH` and `temp` have quite large correlation values. So, we will create another correlation matrix with only those variables to examine them closer.
+
 
 ```{r correl-graph-lv, echo=FALSE}
 cor_data <- fire_scaled %>% select(DC, DMC, ISI, FFMC, temp, RH)
@@ -118,64 +120,27 @@ Looking at the scatter plots with evident trends, for `DC` and `DMC`, there appe
 In order to build our $k$-NN regression model, we use the aforementioned variables and perform cross-validation with 5 folds to find the number of neighbours with the minimum RMSE (root mean square error).
 
 ```{r best-k, echo=FALSE, message=FALSE}
-fire_recipe <- recipe_scale_center(fire_train, area ~ DC + DMC + ISI + FFMC + temp + RH)
-
-fire_spec <- nearest_neighbor(weight_func = "rectangular", neighbors = tune()) %>%
-            set_engine("kknn") %>%
-            set_mode("regression")
-
-fire_cv <- vfold_cv(fire_train, v = 5, strata = area)
-
-fire_wkflw <- workflow() %>%
-            add_recipe(fire_recipe) %>%
-            add_model(fire_spec)
-
-gridvals <- tibble(neighbors = seq(from = 1, to = 200, by = 3))
-
-fire_results <- fire_wkflw %>%
-            tune_grid(resamples = fire_cv, grid = gridvals) %>%
-            collect_metrics() %>%
-            filter(.metric == "rmse")
-
-min_rmse <- fire_results %>%
-            filter(mean == min(mean))
-
-k_min <- min_rmse %>%
-        pull(neighbors)
-
-"Table 2: The Number of Neighbors with the Minimum RMSE"
-min_rmse
+best_k <- read_csv("../results/best_k.csv")
+k_val <- best_k$neighbors
+train_rmse <- round(best_k$mean, digits = 2)
+knitr::kable(best_k, caption = "The number of neighbours with the minimum RMSE")
 ```
 
-We see that the smallest RMSE is when $k=142$. So, we will use it when we retrain our model.
+We see that the smallest RMSE is when $k=$ `r k_val`. So, we will use it when we retrain our model.
 
 
 ### Evaluating on the Test Set
 
 
-To see how well our model predicts on unknown data, we will retrain it to use $k=142$ neighbours before predicting on the test set.
+To see how well our model predicts on unknown data, we will retrain it to use  $k=$ `r k_val` neighbours before predicting on the test set.
 
 ```{r model-rmse, echo=FALSE, message=FALSE}
-test_spec <- nearest_neighbor(weight_func = "rectangular", neighbors = k_min) %>%
-            set_engine("kknn") %>%
-            set_mode("regression")
-
-fire_fit <- workflow() %>%
-            add_recipe(fire_recipe) %>%
-            add_model(test_spec) %>%
-            fit(data = fire_train)
-
-fire_summary <- fire_fit %>%
-                predict(fire_test) %>%
-                bind_cols(fire_test) %>%
-                metrics(truth = area, estimate = .pred) %>%
-                filter(.metric == "rmse")
-
-"Table 3: Testing RMSE"
-fire_summary
+testing_rmse <- read_csv("../results/testing_rmse.csv")
+rmse_val <- round(testing_rmse$.estimate, digits = 2)
+knitr::kable(testing_rmse, caption = "Testing RMSE")
 ```
 
-The new model's RMSE is 30.94 ha, which is the burned area of the forest. When comparing the test model's RMSE to the training model's RMSE of 59.01 ha, we get a difference of 28.07 ha. Because the difference is quite large, our model does a adequate job at generalizing to new data.
+The new model's RMSE is `r rmse_val` ha, which is the burned area of the forest. When comparing the test model's RMSE to the training model's RMSE of `r train_rmse` ha, we get a difference of `r train_rmse - rmse_val` ha. Because the difference is quite large, our model does a adequate job at generalizing to new data.
 
 
 # Discussion

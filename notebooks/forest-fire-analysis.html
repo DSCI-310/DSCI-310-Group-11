@@ -249,22 +249,54 @@ pre code {
 <div id="finding-the-best-k" class="section level3">
 <h3>Finding the Best <span class="math inline">\(k\)</span></h3>
 <p>In order to build our <span class="math inline">\(k\)</span>-NN regression model, we use the aforementioned variables and perform cross-validation with 5 folds to find the number of neighbours with the minimum RMSE (root mean square error).</p>
-<pre><code>## [1] &quot;Table 2: The Number of Neighbors with the Minimum RMSE&quot;</code></pre>
-<pre><code>## # A tibble: 1 × 7
-##   neighbors .metric .estimator  mean     n std_err .config              
-##       &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
-## 1       142 rmse    standard    59.0     5    19.7 Preprocessor1_Model48</code></pre>
-<p>We see that the smallest RMSE is when <span class="math inline">\(k=142\)</span>. So, we will use it when we retrain our model.</p>
+<table>
+<caption><span id="tab:best-k">Table 1: </span>The number of neighbours with the minimum RMSE</caption>
+<thead>
+<tr class="header">
+<th align="right">neighbors</th>
+<th align="left">.metric</th>
+<th align="left">.estimator</th>
+<th align="right">mean</th>
+<th align="right">n</th>
+<th align="right">std_err</th>
+<th align="left">.config</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">148</td>
+<td align="left">rmse</td>
+<td align="left">standard</td>
+<td align="right">58.41536</td>
+<td align="right">5</td>
+<td align="right">20.87483</td>
+<td align="left">Preprocessor1_Model50</td>
+</tr>
+</tbody>
+</table>
+<p>We see that the smallest RMSE is when <span class="math inline">\(k=\)</span> 148. So, we will use it when we retrain our model.</p>
 </div>
 <div id="evaluating-on-the-test-set" class="section level3">
 <h3>Evaluating on the Test Set</h3>
-<p>To see how well our model predicts on unknown data, we will retrain it to use <span class="math inline">\(k=142\)</span> neighbours before predicting on the test set.</p>
-<pre><code>## [1] &quot;Table 3: Testing RMSE&quot;</code></pre>
-<pre><code>## # A tibble: 1 × 3
-##   .metric .estimator .estimate
-##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
-## 1 rmse    standard        30.9</code></pre>
-<p>The new model’s RMSE is 30.94 ha, which is the burned area of the forest. When comparing the test model’s RMSE to the training model’s RMSE of 59.01 ha, we get a difference of 28.07 ha. Because the difference is quite large, our model does a adequate job at generalizing to new data.</p>
+<p>To see how well our model predicts on unknown data, we will retrain it to use <span class="math inline">\(k=\)</span> 148 neighbours before predicting on the test set.</p>
+<table>
+<caption><span id="tab:model-rmse">Table 2: </span>Testing RMSE</caption>
+<thead>
+<tr class="header">
+<th align="left">.metric</th>
+<th align="left">.estimator</th>
+<th align="right">.estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">rmse</td>
+<td align="left">standard</td>
+<td align="right">30.9398</td>
+</tr>
+</tbody>
+</table>
+<p>The new model’s RMSE is 30.94 ha, which is the burned area of the forest. When comparing the test model’s RMSE to the training model’s RMSE of 58.42 ha, we get a difference of 27.48 ha. Because the difference is quite large, our model does a adequate job at generalizing to new data.</p>
 </div>
 </div>
 <div id="discussion" class="section level1">
