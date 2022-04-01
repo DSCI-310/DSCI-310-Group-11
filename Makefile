@@ -48,5 +48,6 @@ notebooks/forest-fire-analysis.html : notebooks/forest-fire-analysis.Rmd  result
 
 clean:
 		rm -f data/training_data.csv data/testing_data.csv 
+		rm -f results/correlation_graph.png results/correlation_graph_selected.png
 		rm -f data/scaled_and_centered_training_data.csv data/cleanedData.csv
 		rm -f results/best_k.csv results/testing_rmse.csv
