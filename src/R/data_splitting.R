@@ -4,7 +4,7 @@
 "This script splits a dataset into training/testing sets (75:25) and scales
 the training set so that all variables are on a comparable scale
 
-Usage: /src/R/data_splitting.R <file_path> <out_dir1> <out_dir2> <out_dir3>
+Usage: /src/R/data_splitting.R <file_path> <out_dir1>
 " -> doc
 
 library(tidymodels)
