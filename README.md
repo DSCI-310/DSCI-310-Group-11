@@ -27,7 +27,7 @@ docker run -it --rm -p 8888:8888 -v /$(pwd):/opt/notebooks a0kay/dsci-310-group-
 ```
 git clone https://github.com/DSCI-310/DSCI-310-Group-11.git
 ```
-2. Install the listed dependencies [below](#dependencies)
+2. Install the listed [dependencies](#dependencies) below
 3. At the root directory of the project, run the following in the terminal/command line:
 ```
 make all
@@ -37,7 +37,6 @@ To reset the repo to a clean state use:
 ```
 make clean
 ```
-
 
 ## Dependencies
 Using R version 4.1.1
@@ -50,7 +49,6 @@ Using R version 4.1.1
 - `r-vdiffr=1.0.2`
 - `r-bookdown=0.25`
 - `r-docopt=0.7.1`
-
 
 ## License 
 Licensed under the MIT License and
