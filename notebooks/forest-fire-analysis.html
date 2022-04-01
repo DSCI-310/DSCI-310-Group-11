@@ -575,35 +575,20 @@ Figure 2: Correlation Matrix Between Pairs of Variables with Large Correlation V
 <p>In order to build our <span class="math inline">\(k\)</span>-NN regression model, we use the aforementioned variables and perform cross-validation with 5 folds to find the number of neighbours with the minimum RMSE (root mean square error).</p>
 <table>
 <caption><span id="tab:best-k">Table 1: </span>The number of neighbours with the minimum RMSE</caption>
-<colgroup>
-<col width="13%" />
-<col width="11%" />
-<col width="15%" />
-<col width="12%" />
-<col width="4%" />
-<col width="12%" />
-<col width="30%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th align="right">neighbors</th>
 <th align="left">.metric</th>
-<th align="left">.estimator</th>
 <th align="right">mean</th>
-<th align="right">n</th>
 <th align="right">std_err</th>
-<th align="left">.config</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="right">148</td>
 <td align="left">rmse</td>
-<td align="left">standard</td>
 <td align="right">58.41536</td>
-<td align="right">5</td>
 <td align="right">20.87483</td>
-<td align="left">Preprocessor1_Model50</td>
 </tr>
 </tbody>
 </table>
@@ -617,14 +602,12 @@ Figure 2: Correlation Matrix Between Pairs of Variables with Large Correlation V
 <thead>
 <tr class="header">
 <th align="left">.metric</th>
-<th align="left">.estimator</th>
 <th align="right">.estimate</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">rmse</td>
-<td align="left">standard</td>
 <td align="right">30.9398</td>
 </tr>
 </tbody>
@@ -635,7 +618,7 @@ Figure 2: Correlation Matrix Between Pairs of Variables with Large Correlation V
 <div id="discussion" class="section level1">
 <h1>Discussion</h1>
 <p>From Figure <a href="#fig:correl-graph">1</a>, we can see that the response variable (area) has almost no correlation with the other explanatory variables. This result was unexpected since we thought environmental factors, such as rain, temperature, wind, etc., would have a significant impact on the burned area, whether positive or negative. After further investigation, we noticed that there are many zeros in the dataset in the response column. The large number of zeros has made our data analysis less interpretable and revealing. As most of our output is skewed towards zero, the patterns of the graphs became counter-intuitive and the correlation indexes are also heavily influenced. One remedy is to apply a transformation to the response to yield better linearity, more stabilized variance and a more conspicuous relationship between the variables.</p>
-<p>Furthermore, the skewed nature of our dataset is what prompted us to adopt <span class="math inline">\(k\)</span>-NN regression. A multiple linear regression (MLR) model places more constraints on the data, such as low multicollinearity, linearity, non-constant variance etc., and we discovered that our data fall well short of those requirements. For instance, from Figure 2 we can see that many of our explanatory variables are highly correlated with each other and hence the assumption of no or low multicollinearity fails. <span class="math inline">\(k\)</span>-NN regression, on the other hand, performs well with non-linear relationships since it requires fewer assumptions about the data distribution, making it a better fit for this project than MLR.</p>
+<p>Furthermore, the skewed nature of our dataset is what prompted us to adopt <span class="math inline">\(k\)</span>-NN regression. A multiple linear regression (MLR) model places more constraints on the data, such as low multicollinearity, linearity, non-constant variance etc., and we discovered that our data fall well short of those requirements. For instance, from Figure <a href="#fig:correl-graph-lv">2</a> we can see that many of our explanatory variables are highly correlated with each other and hence the assumption of no or low multicollinearity fails. <span class="math inline">\(k\)</span>-NN regression, on the other hand, performs well with non-linear relationships since it requires fewer assumptions about the data distribution, making it a better fit for this project than MLR.</p>
 <p>Finally, the devastating effects of forest fires speak for themselves. It has led to the irreversible loss of countless properties, crops, animals and people. In this analysis, we wish to predict the burned area of forests based on several environmental factors. By establishing a transparent link between them, it is possible to identify potential risk factors and take appropriate safeguards to prevent the emergence of forest fires and the disasters they generate. Moreover, our analysis can lead to many future research questions such as:</p>
 <ul>
 <li>When are forest fires most likely to occur?</li>

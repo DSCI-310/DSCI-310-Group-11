@@ -39,6 +39,7 @@ model_summary <- model_fit %>%
   predict(test_set) %>%
   bind_cols(test_set) %>%
   metrics(truth = area, estimate = .pred) %>%
-  filter(.metric == "rmse")
+  filter(.metric == "rmse") %>%
+  select(-.estimator)
 
 write_csv(model_summary, paste0(opt$out_dir, "/testing_rmse.csv"))

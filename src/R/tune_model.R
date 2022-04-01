@@ -48,7 +48,10 @@ k_min <- model_results %>%
   filter(mean == min(mean))
 
 # store k in a data frame to save
-k_min_table <- data.frame(k_min)
+k_min_df <- data.frame(k_min)
+
+k_min_table <- k_min_df %>%
+  select(-n, -.config, - .estimator)
 
 # save best model results as a .csv file --------------------------------------
 write_csv(k_min_table, paste0(opt$out_dir, "/best_k.csv"))
