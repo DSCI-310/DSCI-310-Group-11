@@ -29,7 +29,7 @@ data/testing_data.csv : data/cleaned_data.csv src/R/data_splitting.R
 
 # correlation plots
 results/correlation_graph.png : data/scaled_and_centered_training_data.csv src/R/Correlation_matrix_plot.R
-		Rscript src/R/Correlation_matrix_plot.R data/scaled_and_centered_training_data.csv results
+		Rscript src/R/correlation_matrix_plot.R data/scaled_and_centered_training_data.csv results
 
 results/correlation_graph_selected.png : data/scaled_and_centered_training_data.csv src/R/correlation_matrix_plot.R
 		Rscript src/R/correlation_matrix_plot.R data/scaled_and_centered_training_data.csv results
