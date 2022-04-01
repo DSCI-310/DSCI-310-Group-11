@@ -25,7 +25,7 @@ data/training_data.csv : data/cleaned_data.csv src/R/data_splitting.R
 		Rscript src/R/data_splitting.R data/cleanedData.csv data
 
 data/testing_data.csv : data/cleaned_data.csv src/R/data_splitting.R
-		Rscript src/R/data_splitting.R data/cleanedData.csv data
+		Rscript src/R/data_splitting.R data/cleaned_data.csv data
 
 # correlation plots
 results/correlation_graph.png : data/scaled_and_centered_training_data.csv src/R/Correlation_matrix_plot.R
