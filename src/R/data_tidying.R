@@ -6,7 +6,7 @@
 the neccessary data cleaning/tidying, then saves that file
 locally as a csv file. This script takes two data file paths.
 
-Usage: /src/R/data_tidying.R <file_path> <out_dir>
+Usage: src/R/data_tidying.R <file_path> <out_dir>
 " -> doc
 
 library(tidyverse)

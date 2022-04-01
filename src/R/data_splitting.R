@@ -4,12 +4,13 @@
 "This script splits a dataset into training/testing sets (75:25) and scales
 the training set so that all variables are on a comparable scale
 
-Usage: /src/R/data_splitting.R <file_path> <out_dir>
+Usage: src/R/data_splitting.R <file_path> <out_dir>
 " -> doc
 
 library(tidymodels)
 library(tidyverse)
 library(docopt)
+library(recipes)
 
 set.seed(2022)
 
@@ -21,9 +22,9 @@ fire_split <- initial_split(data, prop = 0.75, strata = area)
 fire_train <- training(fire_split)
 fire_test <- testing(fire_split)
 
-fire_recipe <- recipes::recipe(area ~., data = fire_train) %>%
-  recipes::step_center(recipes::all_predictors()) %>%
-  recipes::step_scale(recipes::all_predictors())
+fire_recipe <- recipe(area ~., data = fire_train) %>%
+  step_center(all_predictors()) %>%
+  step_scale(all_predictors())
 
 fire_scaled <- fire_recipe %>%
   prep() %>%

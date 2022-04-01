@@ -49,36 +49,17 @@ suppressPackageStartupMessages({
     library(tidyverse)
     library(tidymodels)
     library(GGally)})
-
-options(repr.plot.width = 15, repr.plot.height = 12)
-
-source("../src/R/data_cleaning.R")
-source("../src/R/correlation_graph.R")
-source("../src/R/recipe_scale_center.R")
 ```
 
-Sample of the first ten rows of the dataset.
+Sample of the first ten rows of the data set.
 
 ```{r load-data, echo = FALSE, warning = FALSE, message = FALSE}
-fire_data <- read_csv("../data/cleanedData.csv")
+fire_data <- read_csv("../data/cleaned_data.csv")
 sample_data <- fire_data |> slice(1:10)
 knitr::kable(sample_data)
 ```
 
-Now, we split the data into a 75:25 training and testing split, which is then scaled and centered to ensure that all variables are on a comparable scale.
-
-```{r data-split-scale-recipe, include=FALSE}
-set.seed(2022)
-fire_split <- initial_split(fire_data, prop = 0.75, strata = area)
-fire_train <- training(fire_split)
-fire_test <- testing(fire_split)
-
-fire_recipe <- recipe_scale_center(fire_train, area ~ .)
-
-fire_scaled <- fire_recipe %>%
-            prep() %>%
-            bake(fire_train)
-```
+We split the data into a 75:25 training and testing split, which is then scaled and centered to ensure that all variables are on a comparable scale.
 
 Then, we plot a correlation matrix to determine if any pairs of variables are associated with each other.
 
