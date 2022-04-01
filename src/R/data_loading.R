@@ -4,7 +4,7 @@
 "This script reads a dataset from the data source URL and saves it 
 locally as a csv file called forestfires.csv in the provided directory.
 
-Usage: src/R/data_reading.R <url> <out_dir>
+Usage: src/R/data_loading.R <url> <out_dir>
 " -> doc
 
 library(tidyverse)
