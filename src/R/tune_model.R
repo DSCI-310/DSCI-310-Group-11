@@ -1,5 +1,5 @@
 "This scripts fits a k-nn regression model on the given data and get the minimum
-number of neighbours for k-nn. 
+number of neighbours for k-nn.
 The model with best k value is saved as a csv file named 'best_k.csv'.
 
 The training data is to be a csv file.
@@ -22,13 +22,13 @@ train_set <- read.csv(opt$train_data)
 model_recipe <- recipe(area ~ DC + DMC + ISI + FFMC + temp + RH, train_set)
 
 # create model specification
-model_spec <- nearest_neighbor(weight_func = "rectangular", neighbors = tune()) |>
-  set_engine("kknn") |>
+model_spec <- nearest_neighbor(weight_func = "rectangular", neighbors = tune()) %>%
+  set_engine("kknn") %>%
   set_mode("regression")
 
 # create workflow
-model_wkflw <- workflow() |>
-  add_recipe(model_recipe) |>
+model_wkflw <- workflow() %>%
+  add_recipe(model_recipe) %>%
   add_model(model_spec)
 
 # hyperparameter tuning -------------------------------------------------------
@@ -38,13 +38,13 @@ model_cv <- vfold_cv(train_set, v = 5, strata = area)
 
 gridvals <- tibble(neighbors = seq(from = 1, to = 200, by = 3))
 
-model_results <- model_wkflw |>
-  tune_grid(resamples = model_cv, grid = gridvals) |>
-  collect_metrics() |>
+model_results <- model_wkflw %>%
+  tune_grid(resamples = model_cv, grid = gridvals) %>%
+  collect_metrics() %>%
   filter(.metric == "rmse")
 
 # the minimum k
-k_min <- model_results |>
+k_min <- model_results %>%
   filter(mean == min(mean))
 
 # store k in a data frame to save
