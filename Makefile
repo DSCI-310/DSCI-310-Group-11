@@ -17,7 +17,7 @@ data/forestfires.csv : data/forestfires.csv src/R/data_cleaning.R
 		Rscript src/R/data_cleaning.R data/forestfires.csv data
 		
 # tidying the data
-data/cleanedData.csv : data/forestfires.csv src/R/data_tidying.R
+data/cleaned_data.csv : data/forestfires.csv src/R/data_tidying.R
 		Rscript src/R/data_tidying.R data/forestfires.csv data
 
 # data pre-processing: split into training and testing sets
