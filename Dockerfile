@@ -6,5 +6,6 @@ RUN conda install --yes -c conda-forge \
     r-ggally=2.1.2 \
     r-testthat=3.1.2 \
     r-dplyr=1.0.7 \
-    r-vdiffr=1.0.2
-    
+    r-vdiffr=1.0.2 \
+    r-bookdown=0.25 \
+    r-docopt=0.7.1
