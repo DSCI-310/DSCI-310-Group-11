@@ -2,5 +2,6 @@
 .DS_Store
 .RData
 .Rhistory
+.virtual_documents/notebooks/
 **/.ipynb_checkpoints/
 **/.DS_Store
