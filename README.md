@@ -6,9 +6,6 @@ Authors: Amy Kong, Jaskaran Singh, Sam Zhang
 
 A wildfire is an uncontrolled fire that starts in the wildland vegetation and spreads quickly through the landscape. A natural occurrence, such as a lightning strike, or a human-made spark can easily initiate a wildfire and wipe away millions of properties. However, the extent to which a wildfire spreads is frequently determined by weather conditions. Wind, heat, and a lack of rain may dry out trees, bushes, fallen leaves, and limbs, making them excellent fuel for a fire. In this project, **we wish to predict the burned area of forests based on several environmental factors with a k-NN regression model**. By establishing a transparent link between them, it is possible to identify potential risk factors and take appropriate safeguards to prevent the emergence of forest fires and the disasters they generate.
 
-## Report
-The final report can be found here.
-
 ## Running the Analysis
 ### Using Docker
 1. Install [Docker](https://www.docker.com/get-started), if not already installed
@@ -50,7 +47,7 @@ Using R version 4.1.1
 - `r-testthat=3.1.2`
 - `r-dplyr=1.0.7`
 - `r-vdiffr=1.0.2`
-- `r-recipes-0.2.0`
+- `r-recipes=0.2.0`
 - `r-bookdown=0.25`
 - `r-docopt=0.7.1`
 
