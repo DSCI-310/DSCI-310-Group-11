@@ -47,22 +47,17 @@ Following are the attributes used in this dataset:
 
 First, we load and tidy the data by removing the non-numeric columns, `month` and `date`, and the numeric columns, `X` (x-axis coordinates) and `Y` (y-axis coordinates), as they are not relevant in our analysis. Below is the first ten rows of the data set.
 
-
 ```{r setup, include=FALSE}
 suppressPackageStartupMessages({
     library(tidyverse)
     library(tidymodels)
     library(GGally)})
 options(repr.plot.width = 15, repr.plot.height = 12)
-source("../src/R/data_cleaning.R")
-source("../src/R/correlation_graph.R")
-source("../src/R/recipe_scale_center.R")
 
 knitr::opts_chunk$set(echo = FALSE,
                       warning = FALSE,
                       message = FALSE)
 ```
-
 
 ```{r load-data}
 fire_data <- read_csv("../data/cleaned_data.csv")
@@ -77,6 +72,12 @@ Now, we split the data into a 75:25 training and testing split, which is then sc
 fire_train <- read_csv("../data/training_data.csv")
 fire_test <- read_csv("../data/testing_data.csv")
 fire_scaled <- read_csv("../data/scaled_and_centered_training_data.csv")
+```
+
+```{r correl-graph, fig.cap="Correlation matrix between pairs of variables associated with each other.", out.width="85%", echo=FALSE}
+knitr::include_graphics("../results/correlation_graph.png")
+```
+
 From Figure \@ref(fig:correl-graph), we see that `DC` and `DMC`; `ISI` and `FFMC`; `temp` and `DMC`; `temp` and `DC`; and `RH` and `temp` have quite large correlation values. So, we will create another correlation matrix with only those variables to examine them closer.
 
 ```{r correl-graph-lv, fig.cap="Correlation Matrix Between Pairs of Variables with Large Correlation Values", out.width="85%", echo=FALSE}
@@ -86,12 +87,26 @@ knitr::include_graphics("../results/correlation_graph_selected.png")
 Looking at the scatter plots with evident trends, for `DC` and `DMC`, there appears to be a strong, positive relationship between the variables; whereas for temperature (`temp`) and relative humidity (`RH`), there appears to be a weak, negative relationship. And for `ISI` and `FFMC`, the plot follows a logarithmic curve, with a majority of the points concentrated around `ISI` values of -1.25 to 1.25.
 
 ### Finding the Best $k$
+
+```{r best-k, echo=FALSE, message=FALSE}
+best_k <- read_csv("../results/best_k.csv")
+k_val <- best_k$neighbors
+train_rmse <- round(best_k$mean, digits = 2)
 knitr::kable(best_k, caption = "The number of neighbours with the minimum RMSE")
 ```
 
 We see that the smallest RMSE is when $k=$ `r k_val`. So, we will use it when we retrain our model.
 
+### Evaluating on the Test Set
+
+To see how well our model predicts on unknown data, we will retrain it to use  $k=$ `r k_val` neighbours before predicting on the test set.
+
+```{r model-rmse, echo=FALSE, message=FALSE}
+testing_rmse <- read_csv("../results/testing_rmse.csv")
+rmse_val <- round(testing_rmse$.estimate, digits = 2)
+knitr::kable(testing_rmse, caption = "Testing RMSE")
 ```
+
 The new model's RMSE is `r rmse_val` ha, which is the burned area of the forest. When comparing the test model's RMSE to the training model's RMSE of `r train_rmse` ha, we get a difference of `r train_rmse - rmse_val` ha. Because the difference is quite large, our model does a adequate job at generalizing to new data.
 
 # Discussion
