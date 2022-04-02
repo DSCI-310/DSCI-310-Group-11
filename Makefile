@@ -6,7 +6,7 @@
 # a model as well as rendering the final report. This script takes no
 # arguments.
 #
-#Usage to run entire analysis: make all
+# Usage to run entire analysis: make all
 #      to clean the entire analysis: make clean
 
 
