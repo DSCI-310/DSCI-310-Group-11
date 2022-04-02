@@ -42,53 +42,49 @@ Following are the attributes used in this dataset: \* `X` : x-axis spatial coord
 
 ### Exploratory Data Analysis
 
-First, we load and tidy the data by removing the non-numeric columns, `month` and `date`, and the numeric columns, `X` (x-axis coordinates) and `Y` (y-axis coordinates), as they are not relevant in our analysis.
+First, we load and tidy the data by removing the non-numeric columns, `month` and `date`, and the numeric columns, `X` (x-axis coordinates) and `Y` (y-axis coordinates), as they are not relevant in our analysis. Below is the first ten rows of the data set.
+
 
 ```{r setup, include=FALSE}
 suppressPackageStartupMessages({
     library(tidyverse)
     library(tidymodels)
     library(GGally)})
-
 options(repr.plot.width = 15, repr.plot.height = 12)
-
 source("../src/R/data_cleaning.R")
 source("../src/R/correlation_graph.R")
 source("../src/R/recipe_scale_center.R")
+
+knitr::opts_chunk$set(echo = FALSE,
+                      warning = FALSE,
+                      message = FALSE)
 ```
 
-Sample of the first ten rows of the dataset.
 
-```{r load-data, echo = FALSE, warning = FALSE, message = FALSE}
-fire_data <- read_csv("../data/cleanedData.csv")
+```{r load-data}
+fire_data <- read_csv("../data/cleaned_data.csv")
 sample_data <- fire_data |> slice(1:10)
-knitr::kable(sample_data)
+knitr::kable(sample_data, caption = "First ten rows of the dataset.")
 ```
 
 Now, we split the data into a 75:25 training and testing split, which is then scaled and centered to ensure that all variables are on a comparable scale.
 
-```{r data-split-scale-recipe, include=FALSE}
-set.seed(2022)
-fire_split <- initial_split(fire_data, prop = 0.75, strata = area)
-fire_train <- training(fire_split)
-fire_test <- testing(fire_split)
+```{r data-split-scale-recipe}
 
-fire_recipe <- recipe_scale_center(fire_train, area ~ .)
-
-fire_scaled <- fire_recipe %>%
-            prep() %>%
-            bake(fire_train)
+fire_train <- read_csv("../data/training_data.csv")
+fire_test <- read_csv("../data/testing_data.csv")
+fire_scaled <- read_csv("../data/scaled_and_centered_training_data.csv")
 ```
 
 Then, we plot a correlation matrix to determine if any pairs of variables are associated with each other.
 
-```{r correl-graph, fig.cap="Correlation matrix between pairs of variables associated with each other.", echo=FALSE}
+```{r correl-graph, fig.cap="Correlation matrix between pairs of variables associated with each other."}
 knitr::include_graphics("../results/correlation_graph.png")
 ```
 
 From Figure 1, we see that `DC` and `DMC`; `ISI` and `FFMC`; `temp` and `DMC`; `temp` and `DC`; and `RH` and `temp` have quite large correlation values. So, we will create another correlation matrix with only those variables to examine them closer.
 
-```{r correl-graph-lv, fig.cap="Correlation Matrix Between Pairs of Variables with Large Correlation Values", echo=FALSE}
+```{r correl-graph-lv, fig.cap="Correlation Matrix Between Pairs of Variables with Large Correlation Values"}
 knitr::include_graphics("../results/correlation_graph_selected.png")
 ```
 
@@ -98,7 +94,7 @@ Looking at the scatter plots with evident trends, for `DC` and `DMC`, there appe
 
 In order to build our $k$-NN regression model, we use the aforementioned variables and perform cross-validation with 5 folds to find the number of neighbours with the minimum RMSE (root mean square error).
 
-```{r best-k, echo=FALSE, message=FALSE}
+```{r best-k}
 best_k <- read_csv("../results/best_k.csv")
 k_val <- best_k$neighbors
 train_rmse <- round(best_k$mean, digits = 2)
@@ -112,7 +108,7 @@ We see that the smallest RMSE is when $k=$ `r k_val`. So, we will use it when we
 
 To see how well our model predicts on unknown data, we will retrain it to use  $k=$ `r k_val` neighbours before predicting on the test set.
 
-```{r model-rmse, echo=FALSE, message=FALSE}
+```{r model-rmse}
 testing_rmse <- read_csv("../results/testing_rmse.csv")
 rmse_val <- round(testing_rmse$.estimate, digits = 2)
 knitr::kable(testing_rmse, caption = "Testing RMSE")
