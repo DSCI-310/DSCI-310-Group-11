@@ -10,4 +10,7 @@ RUN conda install --yes -c conda-forge \
     r-vdiffr=1.0.2 \
     r-recipes=0.2.0 \
     r-bookdown=0.25 \
-    r-docopt=0.7.1
+    r-docopt=0.7.1 \
+    r-rlang=1.0.2 \
+    r-kknn=1.3.1 
+
