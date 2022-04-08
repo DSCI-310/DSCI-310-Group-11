@@ -50,6 +50,7 @@ Using R version 4.1.1
 - `r-recipes=0.2.0`
 - `r-bookdown=0.25`
 - `r-docopt=0.7.1`
+- `r-kknn=1.3.1`
 
 ## License 
 Licensed under the MIT License and
