@@ -1,3 +1,4 @@
+# updated: 2022-04-09
 FROM ubcdsci/jupyterlab:v0.9.0
 
 RUN conda install --yes -c conda-forge \
