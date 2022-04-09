@@ -12,7 +12,7 @@ bibliography: references.bib
 ---
 # Summary
 
-In this project, we will perform data analysis to search for the most optimized model to predict the area of burned forest given a set of meteorological data. We will split the data into training and testing sets, construct a KNN model on the training set and evaluate its performance on the testing set. Additionally, we will discuss the implications of our results, things that we can improve on, and what future research questions our project can lead to. 
+In this project, we perform data analysis to search for the most optimized model to predict the area of burned forest given a set of meteorological data. We split the data into training and testing sets, construct a KNN model on the training set and evaluate its performance on the testing set. Additionally, we discuss the implications of our results, things we can improve on, and what future research questions our project can lead to. 
 
 
 # Introduction
