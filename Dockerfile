@@ -1,4 +1,3 @@
-# Last modified: April 2, 2022
 FROM ubcdsci/jupyterlab:v0.9.0
 
 RUN conda install --yes -c conda-forge \
@@ -13,4 +12,3 @@ RUN conda install --yes -c conda-forge \
     r-docopt=0.7.1 \
     r-rlang=1.0.2 \
     r-kknn=1.3.1 
-
