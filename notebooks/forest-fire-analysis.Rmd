@@ -113,7 +113,6 @@ knitr::kable(testing_rmse, caption = "Testing RMSE")
 
 We see that the final model's testing RMSE is roughly `r rmse_val` ha, which is the burned area of the forest in hectares. 
 
-When comparing the test model's RMSE to the training model's RMSE of `r train_rmse` ha, we get a difference of `r train_rmse - rmse_val` ha. Because the difference is quite large, and considering that hectares of land is extremely large, our model does not do a good job at generalizing to unseen data.
 # Discussion
 
 From above we can see that the testing RMSE is roughly `r rmse_val` ha and this tells us how well our model is at predicting unseen data. In other words, on new observations, we expect the error in our prediction to be roughly `r rmse_val` ha. However, comparing this value to the training model's RMSE of `r train_rmse` ha, we get a difference of `r train_rmse - rmse_val` ha. Note that 1 ha is equivalent to roughly 2.47 football fields and thus the gap equals to around 70 football fields. This discrepancy is quite large and thus indicates that the model does not appear to generalize well to new data that it has never seen before. After carefully examining our data set and models, we noted few reasons below to why this gap exists.
