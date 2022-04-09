@@ -1,4 +1,3 @@
-# author: Amy Kong
 # updated: 2022-04-09
 FROM ubcdsci/jupyterlab:v0.9.0
 
