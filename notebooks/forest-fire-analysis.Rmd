@@ -1,5 +1,5 @@
 ---
-title: 'Using regression to predict the burned area of forest fires in the northeast region of Portugal'
+title: 'Using KNN regression to predict the burned area of forest fires'
 author: "Amy Kong, Jaskaran Singh, Sam Zhang"
 output:
   bookdown::html_document2:
@@ -10,6 +10,10 @@ output:
     number_sections: false
 bibliography: references.bib
 ---
+# Summary
+
+In this project, we will perform data analysis to search for the most optimized model to predict the area of burned forest given a set of meteorological data. We will split the data into training and testing sets, construct a KNN model on the training set and evaluate its performance on the testing set. Additionally, we will discuss the implications of our results, things that we can improve on, and what future research questions our project can lead to. 
+
 
 # Introduction
 
@@ -19,7 +23,7 @@ While wildfires are necessary and beneficial to many plants and animals, climate
 
 The rate at which a wildfire spreads is influenced by a variety of factors, including wind speeds and directions, resulting in complicated nonlinear interactions. The spread rate of wildfires is influenced by the condition of the fuel bed [@fernandez2019] and its geometry [@mcallister2016]. Similarly, the nature of firebrands [@hedayati2019] and the wind-driven transportation of firebrands [@caton-kerr2019; @tohidi2017; @manzello2017] influence how wildfires start and spread in specific places.
 
-This project aims to predict the burned area of forest fires, in the northeast region of Portugal, by using meteorological and other data.
+Given a set of meteorological and other data, the question that this project aims to answer is: **How large the burned area will be in the next year?**
 
 ## Dataset Information
 
@@ -109,12 +113,20 @@ knitr::kable(testing_rmse, caption = "Testing RMSE")
 
 The new model's RMSE is `r rmse_val` ha, which is the burned area of the forest. When comparing the test model's RMSE to the training model's RMSE of `r train_rmse` ha, we get a difference of `r train_rmse - rmse_val` ha. Because the difference is quite large, our model does a adequate job at generalizing to new data.
 
+We see that the final model's testing RMSE is roughly `r rmse_val` ha.
+
 # Discussion
+
+From above we can see that the testing RMSE is roughly `r rmse_val` ha and this tells us how well our model is at predicting unseen data. In other words, on new observations, we expect the error in our prediction to be roughly `r rmse_val` ha. However, comparing this value to the training model's RMSE of `r train_rmse` ha, we get a difference of `r train_rmse - rmse_val` ha. Note that 1 ha is equivalent to roughly 2.47 football fields and thus the gap equals to around 70 football fields. This discrepancy is quite large and thus indicates that the model does not appear to generalize well to new data that it has never seen before. After carefully examining our data set and models, we noted few reasons below to why this gap exists.
 
 From Figure \@ref(fig:correl-graph), we can see that the response variable (area) has almost no correlation with the other explanatory variables. This result was unexpected since we thought environmental factors, such as rain, temperature, wind, etc., would have a significant impact on the burned area, whether positive or negative. After further investigation, we noticed that there are many zeros in the dataset in the response column. The large number of zeros has made our data analysis less interpretable and revealing. As most of our output is skewed towards zero, the patterns of the graphs became counter-intuitive and the correlation indexes are also heavily influenced. One remedy is to apply a transformation to the response to yield better linearity, more stabilized variance and a more conspicuous relationship between the variables.
 
 Furthermore, the skewed nature of our dataset is what prompted us to adopt $k$-NN regression. A multiple linear regression (MLR) model places more constraints on the data, such as low multicollinearity, linearity, non-constant variance etc., and we discovered that our data fall well short of those requirements. For instance, from Figure \@ref(fig:correl-graph-lv) we can see that many of our explanatory variables are highly correlated with each other and hence the assumption of no or low multicollinearity fails. $k$-NN regression, on the other hand, performs well with non-linear relationships since it requires fewer assumptions about the data distribution, making it a better fit for this project than MLR.
+
+Finally, the devastating effects of forest fires speak for themselves. It has led to the irreversible loss of countless properties, crops, animals and people. In this analysis, we wish to predict the burned area of forests based on several environmental factors. By establishing a transparent link between them, it is possible to identify potential risk factors and take appropriate safeguards to prevent the emergence of forest fires and the disasters they generate. Moreover, our analysis can lead to many future research questions such as:
+
 -   When are forest fires most likely to occur?
+-   What is the average financial damage of a forest fire?
 -   What is the average financial damage of a forest fire?
 
 # References

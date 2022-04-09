@@ -4,7 +4,12 @@ Authors: Amy Kong, Jaskaran Singh, Sam Zhang
 
 ## Summary
 
-A wildfire is an uncontrolled fire that starts in the wildland vegetation and spreads quickly through the landscape. A natural occurrence, such as a lightning strike, or a human-made spark can easily initiate a wildfire and wipe away millions of properties. However, the extent to which a wildfire spreads is frequently determined by weather conditions. Wind, heat, and a lack of rain may dry out trees, bushes, fallen leaves, and limbs, making them excellent fuel for a fire. In this project, **we wish to predict the burned area of forests based on several environmental factors with a k-NN regression model**. By establishing a transparent link between them, it is possible to identify potential risk factors and take appropriate safeguards to prevent the emergence of forest fires and the disasters they generate.
+A wildfire is an uncontrolled fire that starts in the wildland vegetation and spreads quickly through the landscape. A natural occurrence, such as a lightning strike, or a human-made spark can easily initiate a wildfire and wipe away millions of properties. However, the extent to which a wildfire spreads is frequently determined by weather conditions. Wind, heat, and a lack of rain may dry out trees, bushes, fallen leaves, and limbs, making them excellent fuel for a fire. 
+
+Given a set of meteorological data, the question that this project aims to answer is: **How large the burned area will be in the next year?**
+
+To do this, we performed data analysis to search for the most optimized model. We split the data into training and testing sets, constructed a KNN model on the training set and evaluated its performance on the testing set. The training model's RMSE is 59.01 ha and the testing RMSE is roughly 30.1 ha. For your reference, 1 ha is roughly equivalent to 2.47 football fields so there is a difference of 28.07 ha (70 football fields) in the RMSE between the two models. The discrepancy is quite large which suggests that the model does not appear to generalize well to new data that it has never seen before. Lastly, We discussed the implications of our results, things that we can improve on, and what future research questions our project can lead to. 
+
 
 ## Running the Analysis
 ### Using Docker
