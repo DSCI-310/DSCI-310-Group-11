@@ -8,6 +8,7 @@ A wildfire is an uncontrolled fire that starts in the wildland vegetation and sp
 
 ## Running the Analysis
 ### Using Docker
+**NOTE:** The current Docker image is **NOT** supported on macs with ARM architecture (M1 chip). 
 1. Install [Docker](https://www.docker.com/get-started), if not already installed
 2. Clone this repository
 ```
