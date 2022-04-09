@@ -15,8 +15,6 @@ suppressPackageStartupMessages({
   library(docopt)
 })
 
-options(repr.plot.width = 10, repr.plot.height = 14)
-
 opt <- docopt(doc)
 
 # load data -------------------------------------------------------------------
@@ -26,7 +24,7 @@ trained_data <- read_csv(opt$train, show_col_types = FALSE)
 # ggpairs plot for all variables
 create_plot <- trained_data %>%
   ggpairs(
-    lower = list(continuous = wrap("points", size = 0.3, color = "steelblue", alpha = 0.5)),
+    lower = list(continuous = wrap("points", size = 0.45, color = "steelblue", alpha = 0.5)),
     diag = list(continuous = wrap("densityDiag", fill = "steelblue"))
   ) +
   ggplot2::theme(axis.text.x = element_text(angle = 45, size = 7))
