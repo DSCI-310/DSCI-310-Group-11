@@ -15,38 +15,38 @@ To do this, we performed data analysis to search for the most optimized model. W
 **NOTE:** The current Docker image is **NOT** supported on Macs with ARM architecture (M1 chip). 
 1. Install [Docker](https://www.docker.com/get-started), if not already installed
 2. Clone this repository
-```
-git clone https://github.com/DSCI-310/DSCI-310-Group-11.git
-```
+   ```
+   git clone https://github.com/DSCI-310/DSCI-310-Group-11.git
+   ```
 3. Use the terminal/command line to navigate to the root of this project's repo 
-```
-cd DSCI-310-Group-11
-```
+   ```
+   cd DSCI-310-Group-11
+   ```
 4. Run the following to set up the environment:
    - For Windows, Mac, and Linux/UNIX:
    ```
    docker run -it --rm -p 8888:8888 -v /$(pwd):/opt/notebooks a0kay/dsci-310-group-11 make -C /opt/notebooks
    ```
-   - For Windows using Powershell:
+   - For Windows using Powershell: insert the absolute path of the project repository
    ```
    docker run -it --rm -p 8888:8888 -v <absolute-path-to-directory>:/opt/notebooks a0kay/dsci-310-group-11 make -C /opt/notebooks
    ```
 
 ### Without Docker
 1. Clone this repository
-```
-git clone https://github.com/DSCI-310/DSCI-310-Group-11.git
-```
+   ```
+   git clone https://github.com/DSCI-310/DSCI-310-Group-11.git
+   ```
 2. Install the listed [dependencies](#dependencies) below
 3. At the root directory of the project, run the following in the terminal/command line:
-```
-make all
-```
+   ```
+   make all
+   ```
 
 To reset the repo to a clean state use:
-```
-make clean
-```
+   ```
+   make clean
+   ```
 
 ## Dependencies
 Using R version 4.1.1
