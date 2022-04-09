@@ -17,9 +17,9 @@ In this project, we perform data analysis to search for the most optimized model
 
 # Introduction
 
-A wildfire is an uncontrolled fire that starts in the wildland vegetation and spreads quickly through the landscape, particularly in rural locations. For hundreds of millions of years, wildfires have burned in forests, grasslands, savannas, and other habitats. They are not constrained by geography or climate. A natural occurrence, such as a lightning strike, or a human-made spark can ignite a wildfire. However, the extent to which a wildfire spreads is frequently determined by weather conditions. Wind, heat, and a lack of rain may dry out trees, bushes, fallen leaves, and limbs, making them excellent fuel for a fire. Topography also plays a role: flames burn faster uphill than they do downhill.
+A wildfire is an uncontrolled fire that starts in the wild land vegetation and spreads quickly through the landscape, particularly in rural locations. For hundreds of millions of years, wildfires have burned in forests, grasslands, savannas, and other habitats. They are not constrained by geography or climate. A natural occurrence, such as a lightning strike or a human-made spark, can ignite a wildfire. However, the extent to which a wildfire spreads is frequently determined by weather conditions. Wind, heat, and a lack of rain may dry out trees, bushes, fallen leaves, and limbs, making them excellent fuel for a fire. Topography also plays a role: flames burn faster uphill than they do downhill.
 
-While wildfires are necessary and beneficial to many plants and animals, climate change has made some ecosystems more vulnerable to fires. Drought has worsened as a result of rising temperatures, and forests have dried up. The ancient practice of extinguishing all fires has resulted in an unnatural accumulation of plants and trash, which can feed larger and more violent fires. The size of wildfire burned areas has been unparalleled in recent years, particularly in forested regions around the world, which are increasingly affecting large populations. This emphasizes the critical need to increase our ability to predict and better understand the factors that influence total burned areas in specific conditions, as well as real-time wildfire spread modeling.
+While wildfires are necessary and beneficial to many plants and animals, climate change has made some ecosystems more vulnerable to fires. Drought has worsened as a result of rising temperatures, and forests have dried up. The ancient practice of extinguishing all fires has resulted in an unnatural accumulation of plants and trash, which can feed larger and more violent fires. The size of wildfire burned areas has been unparalleled in recent years, particularly in forested regions around the world, which are increasingly affecting large populations. This emphasizes the critical need to increase our ability to predict and better understand the factors that influence total burned areas in specific conditions, as well as real-time wildfire spread modelling.
 
 The rate at which a wildfire spreads is influenced by a variety of factors, including wind speeds and directions, resulting in complicated nonlinear interactions. The spread rate of wildfires is influenced by the condition of the fuel bed [@fernandez2019] and its geometry [@mcallister2016]. Similarly, the nature of firebrands [@hedayati2019] and the wind-driven transportation of firebrands [@caton-kerr2019; @tohidi2017; @manzello2017] influence how wildfires start and spread in specific places.
 
@@ -27,14 +27,10 @@ Given a set of meteorological and other data, the question this project aims to 
 
 ## Dataset Information
 
-In @fire_dataset, the output `area` was first transformed with a $\ln(x+1)$ function. Then, several Data Mining methods were applied. After fitting the models, the outputs were post-processed with the inverse of the $\ln(x+1)$ transform.
+In @fire-dataset, the output `area` was first transformed with a $\ln(x+1)$ function. Then, several Data Mining methods were applied. After fitting the models, the outputs were post-processed with the inverse of the $\ln(x+1)$ transform.
 
-Following are the attributes used in this dataset: 
+Following are the attributes used in this analysis: 
 
-*  `X` : x-axis spatial coordinate within the Montesinho park map: 1 to 9 
-*  `Y` : y-axis spatial coordinate within the Montesinho park map: 2 to 9 
-*  `month` : month of the year: 'jan' to 'dec' 
-*  `day` : day of the week: 'mon' to 'sun' 
 *  `FFMC`: FFMC index from the FWI system: 18.7 to 96.20 
 *  `DMC`: DMC index from the FWI system: 1.1 to 291.3 
 *  `DC`: DC index from the FWI system: 7.9 to 860.6 
@@ -90,7 +86,7 @@ knitr::include_graphics("../results/correlation_graph_selected.png")
 
 Looking at the scatter plots with evident trends, for `DC` and `DMC`, there appears to be a strong, positive relationship between the variables; whereas for temperature (`temp`) and relative humidity (`RH`), there appears to be a weak, negative relationship. And for `ISI` and `FFMC`, the plot follows a logarithmic curve, with a majority of the points concentrated around `ISI` values of -1.25 to 1.25.
 
-### Finding the Best $k$
+### Finding the Best $K$
 
 ```{r best-k, echo=FALSE, message=FALSE}
 best_k <- read_csv("../results/best_k.csv")
@@ -99,11 +95,11 @@ train_rmse <- round(best_k$mean, digits = 2)
 knitr::kable(best_k, caption = "The number of neighbours with the minimum RMSE")
 ```
 
-We see that the smallest RMSE is when $k=$ `r k_val`. So, we will use it when we retrain our model.
+We see that the smallest RMSE is when $K=$ `r k_val`. So, we will use it when we retrain our model.
 
 ### Evaluating on the Test Set
 
-To see how well our model predicts on unknown data, we will retrain it to use  $k=$ `r k_val` neighbours before predicting on the test set.
+To see how well our model predicts on unknown data, we will retrain it to use  $K=$ `r k_val` neighbours before predicting on the test set.
 
 ```{r model-rmse, echo=FALSE, message=FALSE}
 testing_rmse <- read_csv("../results/testing_rmse.csv")
@@ -115,9 +111,9 @@ We see that the final model's testing RMSE is roughly `r rmse_val` ha, which is 
 
 # Discussion
 
-From above we can see that the testing RMSE is roughly `r rmse_val` ha and this tells us how well our model is at predicting unseen data. In other words, on new observations, we expect the error in our prediction to be roughly `r rmse_val` ha. However, comparing this value to the training model's RMSE of `r train_rmse` ha, we get a difference of `r train_rmse - rmse_val` ha. Note that 1 ha is equivalent to roughly 2.47 football fields and thus the gap equals to around 70 football fields. This discrepancy is quite large and thus indicates that the model does not appear to generalize well to new data that it has never seen before. After carefully examining our data set and models, we noted few reasons below to why this gap exists.
+From Table \@ref(tab:model-rmse) we can see that the testing RMSE is roughly `r rmse_val` ha, and this tells us how well our model is at predicting unseen data. In other words, on new observations, we expect the error in our prediction to be roughly `r rmse_val` ha. However, comparing this value to the training model's RMSE of `r train_rmse` ha, we get a difference of `r train_rmse - rmse_val` ha. Note that 1 ha is equivalent to roughly 2.47 football fields and thus the gap equals to around 70 football fields. This discrepancy is quite large and thus indicates that the model does not appear to generalize well to new data that it has never seen before. After carefully examining our data set and models, we noted few reasons below to why this gap exists.
 
-From Figure \@ref(fig:correl-graph), we can see that the response variable (area) has almost no correlation with the other explanatory variables. This result was unexpected since we thought environmental factors, such as rain, temperature, wind, etc., would have a significant impact on the burned area, whether positive or negative. After further investigation, we noticed that there are many zeros in the dataset in the response (`area`) column. The large number of zeros has made our data analysis less interpretable and revealing. As most of our output is skewed towards zero, the patterns of the graphs became counter-intuitive and the correlation indexes are also heavily influenced. One remedy is to apply a transformation to the response to yield better linearity, more stabilized variance, and a more conspicuous relationship between the variables.
+From Figure \@ref(fig:correl-graph), we can see that the response variable (`area`) has almost no correlation with the other explanatory variables. This result was unexpected since we thought environmental factors, such as rain, temperature, wind, etc., would have a significant impact on the burned area, whether positive or negative. After further investigation, we noticed that there are many zeros in the dataset in the response (`area`) column. The large number of zeros has made our data analysis less interpretable and revealing. As most of our output is skewed towards zero, the patterns of the graphs became counter-intuitive and the correlation indexes are also heavily influenced. One remedy is to apply a transformation to the response to yield better linearity, more stabilized variance, and a more conspicuous relationship between the variables.
 
 Furthermore, the skewed nature of our dataset is what prompted us to adopt KNN regression. A multiple linear regression (MLR) model places more constraints on the data, such as low multicollinearity, linearity, non-constant variance etc., and we discovered that our data fall well short of those requirements. For instance, from Figure \@ref(fig:correl-graph-lv) we can see that many of our explanatory variables are highly correlated with each other and hence the assumption of no or low multicollinearity fails. KNN regression, on the other hand, performs well with non-linear relationships since it requires fewer assumptions about the data distribution, making it a better fit for this project than MLR.
 
