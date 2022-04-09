@@ -23,7 +23,7 @@ While wildfires are necessary and beneficial to many plants and animals, climate
 
 The rate at which a wildfire spreads is influenced by a variety of factors, including wind speeds and directions, resulting in complicated nonlinear interactions. The spread rate of wildfires is influenced by the condition of the fuel bed [@fernandez2019] and its geometry [@mcallister2016]. Similarly, the nature of firebrands [@hedayati2019] and the wind-driven transportation of firebrands [@caton-kerr2019; @tohidi2017; @manzello2017] influence how wildfires start and spread in specific places.
 
-Given a set of meteorological and other data, the question that this project aims to answer is: **How large the burned area will be in the next year?**
+Given a set of meteorological and other data, the question this project aims to answer is: **How large will the burned area be in the next year?**
 
 ## Dataset Information
 
