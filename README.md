@@ -4,7 +4,7 @@ Authors: Amy Kong, Jaskaran Singh, Sam Zhang
 
 ## Summary
 
-A wildfire is an uncontrolled fire that starts in the wildland vegetation and spreads quickly through the landscape. A natural occurrence, such as a lightning strike, or a human-made spark can easily initiate a wildfire and wipe away millions of properties. However, the extent to which a wildfire spreads is frequently determined by weather conditions. Wind, heat, and a lack of rain may dry out trees, bushes, fallen leaves, and limbs, making them excellent fuel for a fire. 
+A wildfire is an uncontrolled fire that starts in the wild land vegetation and spreads quickly through the landscape. A natural occurrence, such as a lightning strike or a human-made spark, can easily initiate a wildfire and wipe away millions of properties. However, the extent to which a wildfire spreads is frequently determined by weather conditions. Wind, heat, and a lack of rain may dry out trees, bushes, fallen leaves, and limbs, making them excellent fuel for a fire. 
 
 Given a set of meteorological data, the question that this project aims to answer is: **How large the burned area will be in the next year?**
 
