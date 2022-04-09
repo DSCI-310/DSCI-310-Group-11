@@ -33,17 +33,16 @@ To do this, we performed data analysis to search for the most optimized model. W
    ```
 
 ### Without Docker
-1. Clone this repository
+1. Install the listed [dependencies](#dependencies) below
+2. Clone this repository
    ```
    git clone https://github.com/DSCI-310/DSCI-310-Group-11.git
    ```
-2. Install the listed [dependencies](#dependencies) below
 3. At the root directory of the project, run the following in the terminal/command line:
    ```
    make all
    ```
-
-To reset the repo to a clean state use:
+4. To reset the repo to a clean state use:
    ```
    make clean
    ```
