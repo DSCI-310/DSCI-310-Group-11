@@ -8,7 +8,7 @@ A wildfire is an uncontrolled fire that starts in the wild land vegetation and s
 
 Given a set of meteorological data, the question that this project aims to answer is: **How large the burned area will be in the next year?**
 
-To do this, we performed data analysis to search for the most optimized model. We split the data into training and testing sets, constructed a KNN model on the training set and evaluated its performance on the testing set. The training model's RMSE is 59.01 ha and the testing RMSE is roughly 30.1 ha. For your reference, 1 ha is roughly equivalent to 2.47 football fields so there is a difference of 28.07 ha (70 football fields) in the RMSE between the two models. The discrepancy is quite large which suggests that the model does not appear to generalize well to new data that it has never seen before. Lastly, We discussed the implications of our results, things that we can improve on, and what future research questions our project can lead to. 
+To do this, we performed data analysis to search for the most optimized model. We split the data into training and testing sets, constructed a KNN model on the training set and evaluated its performance on the testing set. The training model's RMSE is 59.01 ha and the testing RMSE is roughly 30.1 ha. For your reference, 1 ha (hectare) is roughly equivalent to 2.47 football fields so there is a difference of 28.07 ha (70 football fields) in the RMSE between the two models. The discrepancy is quite large which suggests that the model does not appear to generalize well to new data that it has never seen before. Lastly, we discussed the implications of our results, things we can improve on, and what future research questions our project can lead to. 
 
 
 ## Running the Analysis
