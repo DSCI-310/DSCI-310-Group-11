@@ -25,11 +25,11 @@ To do this, we performed data analysis to search for the most optimized model. W
 4. Run the following to set up the environment:
    - For Windows, Mac, and Linux/UNIX systems:
    ```
-   docker run -it --rm -p 8888:8888 -v /$(pwd):/opt/notebooks a0kay/dsci-310-group-11 make -C /opt/notebooks
+   docker run -it --rm -p 8888:8888 -v /$(pwd):/opt/notebooks a0kay/dsci-310-group-11:v4.3.0 make -C /opt/notebooks
    ```
    - For Windows using Powershell: insert the absolute path of the project repository
    ```
-   docker run -it --rm -p 8888:8888 -v <absolute-path-to-directory>:/opt/notebooks a0kay/dsci-310-group-11 make -C /opt/notebooks
+   docker run -it --rm -p 8888:8888 -v <absolute-path-to-directory>:/opt/notebooks a0kay/dsci-310-group-11:v4.3.0 make -C /opt/notebooks
    ```
 
 ### Without Docker
@@ -46,6 +46,9 @@ To do this, we performed data analysis to search for the most optimized model. W
    ```
    make clean
    ```
+
+## Viewing the Analysis
+The associated analysis files can be found [here](https://github.com/DSCI-310/DSCI-310-Group-11/tree/main/notebooks).
 
 ## Dependencies
 Using R version 4.1.1
